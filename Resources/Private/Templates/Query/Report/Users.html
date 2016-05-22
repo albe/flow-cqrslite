@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<f:layout name="Default" />
+
+<f:section name="Title">User Report</f:section>
+
+<f:section name="Content">
+    <h1>A report of user accounts by type:</h1>
+    <table>
+        <thead>
+            <tr><th>Type</th><th>Count</th></tr>
+        </thead>
+        <tbody>
+        <f:for each="{reports}" as="report">
+            <tr><td>{report.type}</td><td>{report.count}</td></tr>
+        </f:for>
+        </tbody>
+    </table>
+</f:section>
+</html>

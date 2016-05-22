@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<f:layout name="Default" />
+
+<f:section name="Title">New User</f:section>
+
+<f:section name="Content">
+    <h1>Create a new user:</h1>
+    <f:form method="post" action="dispatch" controller="Standard" subpackage="Command" name="command">
+        <f:form.hidden property="type" value="CreateUser" />
+        <f:form.textfield property="payload.username" />
+        <f:form.select property="payload.type" options="{0: 'User', 1: 'Moderator', 2: 'Admin'}" />
+        <br/>
+        <f:form.button type="submit">Create</f:form.button>
+    </f:form>
+</f:section>
+</html>
