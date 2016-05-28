@@ -62,7 +62,11 @@ class Command
             unset($meta['issuedBy']);
         }
         if (isset($meta['issuedOn'])) {
-            $this->issuedOn = $meta['issuedOn'];
+            if ($meta['issuedOn'] instanceof \DateTime) {
+                $this->issuedOn = clone $meta['issuedOn'];
+            } else {
+                $this->issuedOn = new \DateTime($meta['issuedOn']);
+            }
             unset($meta['issuedOn']);
         }
         if ($this->issuedOn === null) {
@@ -92,7 +96,7 @@ class Command
      */
     public function getIssuedOn()
     {
-        return $this->issuedOn;
+        return clone $this->issuedOn;
     }
 
     /**
