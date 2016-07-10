@@ -1,8 +1,8 @@
 {
-    "description": "Add description here",
+    "description": "A simple CQRS implementation for Flow Framework",
     "type": "neos-package",
     "require": {
-        "typo3/flow": "*"
+        "typo3/flow": "~3.2"
     },
     "name": "albe/cqrslite",
     "autoload": {

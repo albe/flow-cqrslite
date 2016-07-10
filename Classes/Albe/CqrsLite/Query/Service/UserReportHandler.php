@@ -12,6 +12,9 @@ use Albe\CqrsLite\Query\Domain\Repository\UserReportRepository;
 use TYPO3\Flow\Log\SystemLoggerInterface;
 
 /**
+ * An event handler implemented as Slot, that takes care of building a read model that holds the number
+ * of registered user aggregated by their type.
+ *
  * @Flow\Scope("singleton")
  */
 class UserReportHandler
@@ -29,16 +32,16 @@ class UserReportHandler
     protected $systemLogger;
 
     /**
-     * @param User $user
+     * @param array $user
      * @return void
      */
-    public function onUserCreated(User $user)
+    public function onUserRegistered(array $user)
     {
-        $this->systemLogger->log('onUserCreated');
+        $this->systemLogger->log('onUserRegistered');
         /* @var $userReport UserReport */
-        $userReport = $this->userReports->findOneByType($user->getType());
+        $userReport = $this->userReports->findOneByType($user['type']);
         if (!$userReport) {
-            $userReport = new UserReport($user->getType());
+            $userReport = new UserReport($user['type']);
             $this->userReports->add($userReport);
         } else {
             $userReport->increaseCount();

@@ -9,6 +9,12 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * This is the read-side equivalent of the write-side User model and captures all information that is necessary for
+ * users to be able to work with the system in the expected way.
+ *
+ * Notice that this is only slightly different from the write-side model in this case, but could in fact look completely
+ * different depending on the use case.
+ *
  * @Flow\Entity
  */
 class User

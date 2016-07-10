@@ -9,6 +9,9 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * This is an example of read-side only model. It captures additional information about what happened
+ * on the write side, that is not essential for business rules.
+ *
  * @Flow\Entity
  * @ORM\Table(indexes={@ORM\Index(name="type_idx", columns={"type"})})
  */
