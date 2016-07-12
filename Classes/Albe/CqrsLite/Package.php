@@ -11,7 +11,6 @@ use Albe\CqrsLite\Query\Service\UserHandler;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Dispatcher;
 use TYPO3\Flow\Package\Package as BasePackage;
-use Albe\CqrsLite\Command\Controller\StandardController;
 use Albe\CqrsLite\Query\Service\UserReportHandler;
 
 /**
@@ -29,11 +28,13 @@ class Package extends BasePackage
     {
         $dispatcher = $bootstrap->getSignalSlotDispatcher();
 
+        // Connect the command logger to receive any commands coming in
         $dispatcher->connect(
             Dispatcher::class, 'beforeControllerInvocation',
             CommandLogger::class, 'onBeforeControllerInvocation'
         );
 
+        // Connect the read-side handlers to the write-side signals
         $dispatcher->connect(
             UserController::class, 'userRegistered',
             UserHandler::class, 'onUserRegistered'
