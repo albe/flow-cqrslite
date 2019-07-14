@@ -2,7 +2,7 @@
     "description": "A simple CQRS implementation for Flow Framework",
     "type": "neos-package",
     "require": {
-        "neos/flow": "~4.3"
+        "neos/flow": "~4.3 || ^5.0"
     },
     "name": "albe/cqrslite",
     "autoload": {
