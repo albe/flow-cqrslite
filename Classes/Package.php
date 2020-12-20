@@ -9,6 +9,7 @@ use Albe\CqrsLite\Command\Controller\UserController;
 use Albe\CqrsLite\Command\Log\CommandLogger;
 use Albe\CqrsLite\Query\Service\UserHandler;
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Core\Bootstrap;
 use Neos\Flow\Mvc\Dispatcher;
 use Neos\Flow\Package\Package as BasePackage;
 use Albe\CqrsLite\Query\Service\UserReportHandler;
@@ -28,11 +29,16 @@ class Package extends BasePackage
     {
         $dispatcher = $bootstrap->getSignalSlotDispatcher();
 
-        // Connect the command logger to receive any commands coming in
-        $dispatcher->connect(
-            Dispatcher::class, 'beforeControllerInvocation',
-            CommandLogger::class, 'onBeforeControllerInvocation'
-        );
+        $runLevel = $bootstrap->isCompiletimeCommand(isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : '') ? Bootstrap::RUNLEVEL_COMPILETIME : Bootstrap::RUNLEVEL_RUNTIME;
+        if ($runLevel === Bootstrap::RUNLEVEL_COMPILETIME) return;
+
+        if (PHP_SAPI !== 'cli') {
+            // Connect the command logger to receive any commands coming in
+            $dispatcher->connect(
+                Dispatcher::class, 'beforeControllerInvocation',
+                CommandLogger::class, 'onBeforeControllerInvocation'
+            );
+        }
 
         // Connect the read-side handlers to the write-side signals
         $dispatcher->connect(
