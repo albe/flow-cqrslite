@@ -7,7 +7,7 @@
     "name": "albe/cqrslite",
     "autoload": {
         "psr-4": {
-            "Albe\\CqrsLite": "Classes/"
+            "Albe\\CqrsLite\\": "Classes"
         }
     },
     "extra": {
