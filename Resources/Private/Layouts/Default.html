@@ -3,10 +3,13 @@
     <head>
         <meta charset="utf-8">
         <title><f:render section="Title" /></title>
-        <f:base />
     </head>
     <body>
-        <div><f:link.action action="new" controller="User" subpackage="Query">Register User</f:link.action> <f:link.action action="users" controller="Report" subpackage="Query">Users Report</f:link.action></div>
+        <div>
+            <f:link.action action="list" controller="User" subpackage="Query">All users</f:link.action>
+            <f:link.action action="new" controller="User" subpackage="Query">Register user</f:link.action>
+            <f:link.action action="users" controller="Report" subpackage="Query">Users Report</f:link.action>
+        </div>
 
         <f:flashMessages class="flashmessages" />
 

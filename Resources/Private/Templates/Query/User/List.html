@@ -1,0 +1,15 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers">
+<f:layout name="Default" />
+
+<f:section name="Title">List Users</f:section>
+
+<f:section name="Content">
+    <h1>All existing users:</h1>
+    <table>
+        <f:for each="{users}" as="user"><tr>
+            <td>{user.username}</td>
+            <td>{user.type}</td>
+        </tr></f:for>
+    </table>
+</f:section>
+</html>
