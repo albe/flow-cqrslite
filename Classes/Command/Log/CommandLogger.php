@@ -12,7 +12,7 @@ use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\ActionRequest;
 use Neos\Flow\Mvc\Controller\ControllerInterface;
 use Neos\Flow\Mvc\RequestInterface;
-use Neos\Flow\Mvc\ResponseInterface;
+use Neos\Flow\Mvc\ActionResponse;
 use Neos\Flow\Security\Context;
 
 /**
@@ -25,18 +25,19 @@ use Neos\Flow\Security\Context;
  * if no changes to the structure of your state have been made.
  *
  * This is only a small benefit of using CQRS, but is not required at all for running the system.
+ * @Flow\Scope("singleton")
  */
 class CommandLogger
 {
     /**
      * @var CommandRepository
-     * @Flow\Inject
+     * @Flow\Inject(lazy=true)
      */
     protected $commandLog;
 
     /**
      * @var Context
-     * @Flow\Inject
+     * @Flow\Inject(lazy=true)
      */
     protected $securityContext;
 
@@ -44,11 +45,11 @@ class CommandLogger
      * Log the command that is sent to a CommandController
      *
      * @param RequestInterface $request
-     * @param ResponseInterface $response
+     * @param ActionResponse $response
      * @param ControllerInterface $controller
      * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
      */
-    public function onBeforeControllerInvocation(RequestInterface $request, ResponseInterface $response, ControllerInterface $controller)
+    public function onBeforeControllerInvocation(RequestInterface $request, ActionResponse $response, ControllerInterface $controller)
     {
         if ($controller instanceof CommandControllerInterface || strpos($request->getControllerObjectName(), '\\Command\\') !== false) {
             if ($request instanceof ActionRequest) {
