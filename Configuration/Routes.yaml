@@ -1,0 +1,15 @@
+-
+  name: 'CQRS command'
+  uriPattern: 'command/{@controller}/{@action}(.{@format})'
+  defaults:
+    '@package':    'Albe.CqrsLite'
+    '@subpackage': 'Command'
+    '@format':     'html'
+
+-
+  name: 'CQRS query'
+  uriPattern: 'query/{@controller}/{@action}(.{@format})'
+  defaults:
+    '@package':    'Albe.CqrsLite'
+    '@subpackage': 'Query'
+    '@format':     'html'
