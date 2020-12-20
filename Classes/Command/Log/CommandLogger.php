@@ -58,7 +58,7 @@ class CommandLogger
 
                 $account = $this->securityContext->getAccount();
 
-                $command = new Command($commandType, $request->getHttpRequest()->getArgument('command'), array('issuedBy' => $account ? $account->getAccountIdentifier() : null, 'issuedFrom' => $request->getHttpRequest()->getClientIpAddress()));
+                $command = new Command($commandType, $request->getHttpRequest()->getParsedBody('command'), array('issuedBy' => $account ? $account->getAccountIdentifier() : null, 'issuedFrom' => $request->getHttpRequest()->getAttribute('clientIpAddress')));
                 $this->commandLog->add($command);
             }
         }

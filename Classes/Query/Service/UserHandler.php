@@ -8,7 +8,6 @@ namespace Albe\CqrsLite\Query\Service;
 use Neos\Flow\Annotations as Flow;
 use Albe\CqrsLite\Query\Domain\Model\User;
 use Albe\CqrsLite\Query\Domain\Repository\UserRepository;
-use Neos\Flow\Log\SystemLoggerInterface;
 
 /**
  * An event handler implemented as Slot, that takes care of building the read-side of a User model, used for
@@ -25,7 +24,7 @@ class UserHandler
     protected $users;
 
     /**
-     * @var SystemLoggerInterface
+     * @var \Psr\Log\LoggerInterface
      * @Flow\Inject
      */
     protected $systemLogger;
@@ -36,7 +35,7 @@ class UserHandler
      */
     public function onUserRegistered(array $payload)
     {
-        $this->systemLogger->log('new user registered.');
+        $this->systemLogger->info('new user registered.');
 
         $user = new User($payload['username'], $payload['type']);
         $this->users->add($user);

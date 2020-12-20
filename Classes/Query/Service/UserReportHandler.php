@@ -6,10 +6,8 @@ namespace Albe\CqrsLite\Query\Service;
  */
 
 use Neos\Flow\Annotations as Flow;
-use Albe\CqrsLite\Query\Domain\Model\User;
 use Albe\CqrsLite\Query\Domain\Model\UserReport;
 use Albe\CqrsLite\Query\Domain\Repository\UserReportRepository;
-use Neos\Flow\Log\SystemLoggerInterface;
 
 /**
  * An event handler implemented as Slot, that takes care of building a read model that holds the number
@@ -26,7 +24,7 @@ class UserReportHandler
     protected $userReports;
 
     /**
-     * @var SystemLoggerInterface
+     * @var \Psr\Log\LoggerInterface
      * @Flow\Inject
      */
     protected $systemLogger;
@@ -37,7 +35,7 @@ class UserReportHandler
      */
     public function onUserRegistered(array $user)
     {
-        $this->systemLogger->log('onUserRegistered');
+        $this->systemLogger->info('onUserRegistered');
         /* @var $userReport UserReport */
         $userReport = $this->userReports->findOneByType($user['type']);
         if (!$userReport) {
